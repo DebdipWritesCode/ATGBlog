@@ -1,7 +1,7 @@
 {
     "headers": [
       {
-        "source": "/movie/(.*)",
+        "source": "/(.*)",
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",

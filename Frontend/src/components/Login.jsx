@@ -49,7 +49,7 @@ const Login = ({ setLogin, setForgotPassword }) => {
             localStorage.setItem('userName', userName)
             localStorage.setItem('userID', userID)
             localStorage.setItem('expiresIn', expiresIn)
-            window.location.reload()
+            window.location.href = '/';
         }
         catch(err) {
             console.log(err)

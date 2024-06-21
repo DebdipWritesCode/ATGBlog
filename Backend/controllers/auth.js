@@ -39,7 +39,7 @@ exports.postSignup = async (req, res, next) => {
             password: hashedPassword,
         });
         await newUser.save();
-        emailDetails("UserName", email);
+        emailDetails("UserName", email.trim());
         const subject = 'Welcome to our blog!';
         const html = welcomeHTML;
         const text = 'Welcome to our blog!';
@@ -122,7 +122,7 @@ exports.postForgotPassword = async (req, res, next) => {
                 message: 'Email not found.'
             });
         }
-        emailDetails("UserName", email);
+        emailDetails("UserName", email.trim());
         const subject = 'Password Reset';
         const html = createResetPasswordEmail(user.first_name, user._id.toString());
         const text = 'Password Reset';

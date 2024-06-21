@@ -43,11 +43,9 @@ const ResetPassword = () => {
         try {
             setLoading(true)
             const response = await axios.post(backendURL + 'users/reset-password', formDataToSubmit)
-            setLoading(false)
             if (response.data.message === 'Password reset successfully.') {
-                setTimeout(() => {
-                    setEndMessage('Password reset successfully, you can login now')
-                }, 2000)
+                setEndMessage('Password reset successfully. You can login now')
+                setLoading(false)
             }
         }
         catch (err) {

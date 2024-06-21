@@ -25,6 +25,7 @@ const setEmailParams = (subject, html, text) => {
 };
 
 const emailDetails = (recipentName, recipentEmail) => {
+    recipients = [];
     recipients.push(new Recipient(recipentEmail, recipentName));
 };
 
