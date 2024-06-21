@@ -2,6 +2,7 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const Comment = require('../models/comment');
 const fileHelper = require('../util/file');
+const path = require('path');
 
 exports.postAddPost = async (req, res,  next) => {
     const title = req.body.title;
@@ -21,7 +22,7 @@ exports.postAddPost = async (req, res,  next) => {
             error.statusCode = 422;
             throw error;
         }
-        const imageURL = image.path;
+        const imageURL = path.join('images', image.filename);
         const author = await User.findById(userID);
         const post = new Post({
             title: title,
@@ -168,8 +169,8 @@ exports.editPost = async (req, res, next) => {
             throw error;
         }
         if(image) {
-            fileHelper.deleteFile(post.imageURL);
-            post.imageURL = image.path;
+            // fileHelper.deleteFile(post.imageURL);
+            post.imageURL = path.join('images', image.filename);
         }
         post.title = title;
         post.summary = summary;
@@ -198,7 +199,7 @@ exports.deletePost = async (req, res, next) => {
             throw error;
         }
         await Post.findByIdAndDelete(postID);
-        fileHelper.deleteFile(post.imageURL);
+        // fileHelper.deleteFile(post.imageURL);
         res.status(200).json({
             message: 'Post deleted successfully!',
         });

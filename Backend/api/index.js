@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const app = express();
 
 const corsOptions = {
@@ -15,11 +15,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, '../images')));
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'images');
+        cb(null, path.join(__dirname, '../images'));
     },
     filename: (req, file, cb) => {
         const originalName = file.originalname.replace(/\s+/g, '');
@@ -39,8 +39,8 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: fileStorage , fileFilter: fileFilter });
 app.use(upload.single('image'));
 
-const authRoutes = require('./routes/auth');
-const postRoutes = require('./routes/posts');
+const authRoutes = require('../routes/auth');
+const postRoutes = require('../routes/posts');
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
